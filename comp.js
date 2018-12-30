@@ -75,40 +75,61 @@ const students = [
 
 const h1 = (title, style) => {
     return `<h1 class="${style}">${title}</h1>`;
-}
+};
 
 const section = (title, style) => {
     return `<section class="bordered dashed ${style}">${title}</section>`;
-}
+};
 
 const aside = (title, style) => {
     return `<aside class="${style}">${title}</aside>`;
-}
-const article = (title, style) => {
-    return `<article class ="${style}">${title}</article>`;
+};
+const pass = (style) => {
+    return `<p class ="${style}"> PASS </p> `
+};
+const fail = (style) => {
+    return `<p class ="${style}"> FAIL </p> `
+};
 
-}
 
-const studentCreator = (name, clasS, info) => {
-    `<div id="student">
+
+
+const studentCreatorPassing = (name, clasS, info) => {
+   return `<div id="student">
         ${h1(name, "xx-large")}
         ${section(clasS, "section--padded")}
         ${aside(info, "pushRight")}
+        ${pass ("passing")}
+        </div> `
+    };
+    
+    const studentCreatorFailing = (name, clasS, info) => {
+        return `<div id="student">
+        ${h1(name, "xx-large")}
+        ${section(clasS, "section--padded")}
+        ${aside(info, "pushRight")}
+        ${fail ("failing")}
     </div> `
 };
 
-const container = document.querySelector("#container")
-container.innerHTML = studentCreator("Marcus Fulbright", "Algebra", "Not a bright student");
+// const container = document.querySelector("#container");
+// container.innerHTML = studentCreator("Marcus Fulbright", "Algebra", "Not a bright student");
+
+let container = document.querySelector("#container");
 
 const getLooped = () => {
 for (student of students) {
-    let studentComponent ='';
+
     if (student.score >= 60) {
-        studentComponent = studentCreator(students.name, students.score, students.info);
+        container.innerHTML += studentCreatorPassing(student.name, student.clasS, student.info);
+      
+       
     } else {
-        studentComponent = studentCreator(students.name, students.score, students.class);
+        container.innerHTML += studentCreatorFailing(student.name, student.clasS, student.info);
     }
+    
 }
-}
-getLooped(students);
-console.log(getLooped(students));
+    return container;
+};  
+
+console.log(getLooped());
